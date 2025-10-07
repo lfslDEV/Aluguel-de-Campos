@@ -17,8 +17,8 @@ class Reserva(models.Model):
     campo = models.ForeignKey(Campo, on_delete=models.CASCADE) # relaciona a reserva com o campo, se o campo for deletado, a reserva também será deletada
     usuario = models.ForeignKey(User, on_delete=models.CASCADE) # relaciona a reserva com o usuário, se o usuário for deletado, a reserva também será deletada
     dia = models.DateField() # setar o dia da reserva
-    hora_inicio = models.TimeField() # setar a hora de início da reserva
-    hora_fim = models.TimeField() # setar a hora de fim da reserva
+    horario_inicio = models.TimeField() # setar a hora de início da reserva
+    horario_termino = models.TimeField() # setar a hora de fim da reserva
     valor_total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True) # setar o valor total da reserva com 8 dígitos no total e 2 casas decimais, pode ser nulo ou em branco
 
     def __str__(self):

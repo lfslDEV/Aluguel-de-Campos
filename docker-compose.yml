@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=locacao.db
+      - POSTGRES_DB=locacao
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123@123
 
@@ -18,7 +18,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_NAME=locacao.db
+      - POSTGRES_NAME=locacao
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123@123
     depends_on:

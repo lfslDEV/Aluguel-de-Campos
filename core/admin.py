@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Campo, Reserva
 
-# Register your models here.
+admin.site.register(Campo)
+admin.site.register(Reserva)
