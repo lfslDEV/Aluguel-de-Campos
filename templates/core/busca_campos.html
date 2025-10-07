@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ campo.nome_clube }}</h5>
                         <p class="card-text"><strong>Endereço:</strong> {{ campo.endereco }}</p>
-                        <p class="card-text"><strong>Dimensão:</strong> {{ campo.dimensoes }}</p>
+                        <p class="card-text"><strong>Dimensão:</strong> {{ campo.dimensao }}</p>
                         <p class="card-text"><strong>Preço por Hora:</strong> R$ {{ campo.preco_por_hora }}</p>
                         
                         <a href="{% url 'solicitar_reserva' campo.id %}" class="btn btn-success">Reservar</a>
