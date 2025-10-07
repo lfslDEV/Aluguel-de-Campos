@@ -4,6 +4,7 @@ from .models import Campo, Reserva
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from decimal import Decimal
+from django.contrib import messages 
 
 def busca_campos(request):
     cidade = request.GET.get('cidade')
@@ -34,6 +35,7 @@ def solicitar_reserva(request, campo_id):
             valor_total=valor_total_calculado
         )
         reserva.save()
+        messages.success(request, f"Sua reserva para o campo '{campo.nome_clube}' foi confirmada com sucesso!")
 
         return redirect('minhas_reservas')
 
