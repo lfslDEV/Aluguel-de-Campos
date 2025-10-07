@@ -1,37 +1,42 @@
 {% extends 'home.html' %}
 
-{% block title %}Busca de Campos{% endblock %} <!-- vai servir para alterar o nome da aba depois-->
+{% block title %}Busca de Campos{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="mb-4">Aluguel de Campos de Futebol</h1>
-        <p>Encontre o campo perfeito para sua partida!</p>
-
-        <form method="GET" action="{% url 'busca_campos' %}" class="card p-3 mb-4">
-            <div class="input-group">
-                <input type="text" name="cidade" class="form-control" placeholder="Digite o nome da cidade..." value="{{ request.GET.cidade }}">
-                <button class="btn btn-primary" type="submit">Buscar</button>
-            </div>
-        </form>
-
-        {% if campos %}
-            <h2>Resultados da Busca:</h2>
-            {% for campo in campos %}
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ campo.nome_clube }}</h5>
-                        <p class="card-text"><strong>Endereço:</strong> {{ campo.endereco }}</p>
-                        <p class="card-text"><strong>Dimensão:</strong> {{ campo.dimensao }}</p>
-                        <p class="card-text"><strong>Preço por Hora:</strong> R$ {{ campo.preco_por_hora }}</p>
-                        
-                        <a href="{% url 'solicitar_reserva' campo.id %}" class="btn btn-success">Reservar</a>
-                    </div>
-                </div>
-            {% endfor %}
-        {% elif request.GET.cidade %}
-             <div class="alert alert-warning">
-                Nenhum campo encontrado para a cidade pesquisada.
-            </div>
-        {% endif %}
+    <div class="page-header">
+        <h1 class="mb-3">Aluguel de Campos de Futebol</h1>
+        <p class="lead">Encontre o campo perfeito para sua próxima partida!</p>
     </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card p-3 mb-4">
+                <form method="GET" action="{% url 'busca_campos' %}">
+                    <div class="input-group">
+                        <input type="text" name="cidade" class="form-control" placeholder="Digite o nome da cidade..." value="{{ request.GET.cidade }}">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if campos %}
+        <h2 class="mb-3">Resultados da Busca:</h2>
+        {% for campo in campos %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ campo.nome_clube }}</h5>
+                    <p class="card-text"><strong>Endereço:</strong> {{ campo.endereco }}</p>
+                    <p class="card-text"><strong>Dimensão:</strong> {{ campo.dimensao }}</p>
+                    <p class="card-text"><strong>Preço por Hora:</strong> R$ {{ campo.preco_por_hora }}</p>
+                    <a href="{% url 'solicitar_reserva' campo.id %}" class="btn btn-success">Reservar</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% elif request.GET.cidade %}
+         <div class="alert alert-warning">
+            Nenhum campo encontrado para a cidade pesquisada.
+        </div>
+    {% endif %}
 {% endblock %}
