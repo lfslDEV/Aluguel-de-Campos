@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+
+{% block title %}Você Saiu{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Você saiu do sistema.</h2>
+                    <p class="card-text">Obrigado por utilizar o Camp-Reserve. Esperamos te ver em breve para a próxima partida!</p>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Entrar Novamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
