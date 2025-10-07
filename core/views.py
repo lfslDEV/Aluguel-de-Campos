@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from decimal import Decimal
 from django.contrib import messages
-from django.db.models import Q 
-
+from django.contrib.auth import login
+from .forms import CustomUserCreationForm
 
 def busca_campos(request):
     cidade = request.GET.get('cidade')
@@ -82,4 +82,17 @@ def cancelar_reserva(request, reserva_id):
         return redirect('minhas_reservas')
     
     return redirect('minhas_reservas')
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('busca_campos')
+    else:
+        form = CustomUserCreationForm()
+    
+    context = {'form': form}
+    return render(request, 'core/cadastro.html', context)
 
