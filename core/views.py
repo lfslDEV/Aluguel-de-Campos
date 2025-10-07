@@ -67,3 +67,19 @@ def minhas_reservas(request):
         'reservas': reservas
     }
     return render(request, 'core/minhas_reservas.html', context)
+
+@login_required
+def cancelar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    if reserva.usuario != request.user:
+        messages.error(request, "Você não tem permissão para canelar esta reserva.")
+        return redirect('minhas_reservas')
+    
+    if request.method == 'POST':
+        reserva.delete()
+        messages.success(request, "Sua reserva foi cancelada com sucesso.")
+        return redirect('minhas_reservas')
+    
+    return redirect('minhas_reservas')
+

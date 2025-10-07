@@ -34,9 +34,11 @@
                             <strong>Horário:</strong> de {{ reserva.horario_inicio|time:"H:i" }} até {{ reserva.horario_termino|time:"H:i" }}
                         </p>
                         <p class="card-text"><strong>Valor Pago:</strong> R$ {{ reserva.valor_total }}</p>
-                        
-                        <!-- Futuramente, aqui poderia ter um botão para cancelar -->
-                        <!-- <a href="#" class="btn btn-sm btn-danger">Cancelar Reserva</a> -->
+
+                        <form method="POST" action="{% url 'cancelar_reserva' reserva.id %}" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva?');">
+                            {% csrf_token %}¨
+                            <button type="submit" class="btn btn-sm btn-danger">Cancelar Reserva</button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}
