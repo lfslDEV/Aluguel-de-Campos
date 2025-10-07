@@ -4,6 +4,16 @@
 
 {% block content %}
 
+{% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
     <div class="container mt-4">
         <h1>Reservar o Campo: {{ campo.nome_clube }}</h1>
         <p><strong>Endereço:</strong> {{ campo.endereco }}</p>

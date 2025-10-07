@@ -4,7 +4,9 @@ from .models import Campo, Reserva
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from decimal import Decimal
-from django.contrib import messages 
+from django.contrib import messages
+from django.db.models import Q 
+
 
 def busca_campos(request):
     cidade = request.GET.get('cidade')
@@ -21,8 +23,21 @@ def solicitar_reserva(request, campo_id):
         dia = request.POST.get('dia')
         horario_inicio_str = request.POST.get('horario_inicio')
         horario_termino_str = request.POST.get('horario_termino')
+
         horario_inicio = datetime.strptime(horario_inicio_str, '%H:%M').time()
         horario_termino = datetime.strptime(horario_termino_str, '%H:%M').time()
+
+        reservas_existentes = Reserva.objects.filter(
+            campo=campo,
+            dia=dia,
+            horario_inicio__lt=horario_termino,
+            horario_termino__gt=horario_inicio
+        ).exists()
+
+        if reservas_existentes:
+            messages.error(request, "Este horário já está reservado ou você já possui uma reserva")
+            return redirect('solicitar_reserva', campo_id=campo.id)
+        
         duracao_em_horas = (datetime.combine(datetime.min, horario_termino) - datetime.combine(datetime.min, horario_inicio)).seconds / 3600
         valor_total_calculado = Decimal(duracao_em_horas) * campo.preco_por_hora
 
